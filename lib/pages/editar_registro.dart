@@ -21,6 +21,10 @@ class _EditarRegistroPageState extends State<EditarRegistroPage>{
     selectedHumor = widget.registroOriginal.humor;
   }
 
+  void _deleteRegistro() {
+    Navigator.pop(context, {'delete': true});
+  }
+
   void _saveChanges() {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
@@ -63,13 +67,22 @@ class _EditarRegistroPageState extends State<EditarRegistroPage>{
               ),
               maxLines: 4,
             ),
-          const SizedBox(height: 16),
-          Center(
-            child: ElevatedButton(
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(onPressed: _deleteRegistro,
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.red,
+                  ),
+                  child: const Text('Excluir'),
+              ),
+              ElevatedButton(
                 onPressed: _saveChanges,
-                child: const Text('Salvar edição')
-            ),
-          )
+                child: const Text('Salvar edição'),
+              ),
+            ],
+          ),
           ],
         ),
       ),

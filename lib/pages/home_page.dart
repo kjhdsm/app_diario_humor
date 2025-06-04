@@ -79,16 +79,20 @@ class _HomePageState extends State<HomePage> {
                       final entry = entries[index];
                       return GestureDetector(
                         onDoubleTap: () async {
-                          final editedEntry = await Navigator.push(
+                          final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditarRegistroPage(registroOriginal: entry),
                             ),
                           );
 
-                          if (editedEntry != null && editedEntry is registroModel) {
+                          if (result is Map && result['delete'] == true) {
                             setState(() {
-                              entries[index] = editedEntry;
+                              entries.removeAt(index);
+                            });
+                          } else if (result is registroModel) {
+                            setState(() {
+                              entries[index] = result;
                             });
                           }
                         },
