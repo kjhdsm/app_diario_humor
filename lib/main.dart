@@ -1,4 +1,5 @@
 import 'package:app_diario/pages/home_page.dart';
+import 'package:app_diario/service/image_picker_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: const HomePage(),
+      // home: const ImagePickerWidget(),
     );
   }
 }

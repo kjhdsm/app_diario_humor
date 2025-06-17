@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: const Center(
                   child: Text(
-                      'Maio 2025',
+                      'Junho 2025',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
