@@ -1,3 +1,4 @@
+import 'package:app_diario/core/dao_registro.dart';
 import 'package:flutter/material.dart';
 import '../models/registro_model.dart';
 
@@ -12,7 +13,7 @@ class _registroHumorState extends State<registroHumor> {
   final TextEditingController _controller = TextEditingController();
   int selectedHumor = 5;
 
-  void _saveEntry() {
+  void _saveEntry() async {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
@@ -21,6 +22,9 @@ class _registroHumorState extends State<registroHumor> {
       humor: selectedHumor,
       data: DateTime.now(),
     );
+
+    await RegistroDao().inserirRegistro(newEntry);
+
     print('Salvando registro: ${newEntry.descricao}, humor ${newEntry.humor}');
     Navigator.pop(context, newEntry);
   }
