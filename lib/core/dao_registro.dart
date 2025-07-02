@@ -7,11 +7,11 @@ class RegistroDao {
 
   Future<int> inserirRegistro(registroModel registro) async {
     final db = await AppDataBase.database;
+    print('IMAGEM:' + registro.imagePath.toString());
     return await db.insert(
         'registros',
         registro.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
-
     );
   }
 

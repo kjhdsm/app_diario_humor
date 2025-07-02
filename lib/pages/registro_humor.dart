@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:app_diario/core/dao_registro.dart';
 import 'package:flutter/material.dart';
 import '../models/registro_model.dart';
+import '../service/adicionar_imagem.dart';
 
 class registroHumor extends StatefulWidget {
   const registroHumor({super.key});
@@ -12,6 +14,7 @@ class registroHumor extends StatefulWidget {
 class _registroHumorState extends State<registroHumor> {
   final TextEditingController _controller = TextEditingController();
   int selectedHumor = 5;
+  File? _imageFile;
 
   void _saveEntry() async {
     final text = _controller.text.trim();
@@ -21,11 +24,12 @@ class _registroHumorState extends State<registroHumor> {
       descricao: text,
       humor: selectedHumor,
       data: DateTime.now(),
+      imagePath: _imageFile?.path,
     );
 
     await RegistroDao().inserirRegistro(newEntry);
 
-    print('Salvando registro: ${newEntry.descricao}, humor ${newEntry.humor}');
+    print('Salvando registro: ${newEntry.descricao}, humor ${newEntry.humor}, imagem ${newEntry.imagePath}');
     Navigator.pop(context, newEntry);
   }
 
@@ -59,7 +63,13 @@ class _registroHumorState extends State<registroHumor> {
               ),
               maxLines: 4,
             ),
-            const SizedBox(height: 360),
+            const SizedBox(height: 100),
+            AdicionarImagemWidget(
+              onImageSelected: (File? image) {
+                _imageFile= image;
+              },
+            ),
+            const SizedBox(height: 24),
             Center(
               child: ElevatedButton(
                 onPressed: _saveEntry,

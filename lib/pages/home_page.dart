@@ -117,6 +117,7 @@ class _HomePageState extends State<HomePage> {
                               2, '0')}',
                           humor: 'Nota ${entry.humor}',
                           descricao: entry.descricao,
+                          imagePath: entry.imagePath,
                         ),
                       );
                     },

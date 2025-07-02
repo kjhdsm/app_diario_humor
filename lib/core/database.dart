@@ -1,6 +1,13 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+Future<void> deleteDb() async {
+  String dbPath = await getDatabasesPath();
+  String path = join(dbPath, 'diario_humor.db');
+  await deleteDatabase(path);
+  print('Banco de dados deletado.');
+}
+
 class AppDataBase {
   static Database? _db;
 
@@ -25,9 +32,10 @@ class AppDataBase {
   static Future _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE registros(
-        date TEXT PRIMARY KEY
+        date TEXT PRIMARY KEY,
         text TEXT,
         mood INTEGER,
+        image TEXT
       )
     ''');
   }
@@ -36,5 +44,7 @@ class AppDataBase {
     final db = await database;
     db.close();
   }
+
+
 
 }
